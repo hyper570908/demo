@@ -1,0 +1,26 @@
+<%- include header %>
+<form method="post">
+
+  名稱：  <input type="text" name="name"/><br />
+
+
+  <!--年紀：  <input type="text" name="age"/><br /> -->
+ 
+          <input type="submit" value="查詢"/>
+</form>
+
+<%- include footer %>
+<% if (datas) { %>
+    <table width="300" border="1">
+	<tr>
+		<td>名稱</td>
+		<td>年紀</td>
+	</tr>	
+	<% datas.forEach(function(data) { %>
+		<tr>
+		<td><%= data.name %></td>
+		<td><%= data.age %></td>
+		</tr>				
+	<% }); %>
+	</table>
+<% } %>

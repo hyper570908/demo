@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Blog</title>
+<link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+<header>
+<h1><%= title %></h1>
+</header>
+<hr width=500>
+
+<nav>
+<span><a title="首頁" href="/">首頁</a></span>
+<span><a title="推播" href="/post">推播</a></span>
+<span><a title="查詢" href="/find">查詢</a></span>
+</nav>
+
+<% if (success) { %>
+  <div><%= success %></div>
+<% } %>
+<% if (error) { %>
+  <div><%= error %> </div>
+<% } %>
