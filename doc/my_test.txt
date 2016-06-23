@@ -1,0 +1,33 @@
+cd C:\Program Files (x86)\mosquitto
+
+//Mosquitto server test 
+mosquitto.exe -p 1884
+
+//Mosquitto subscribe test 
+cd C:\Program Files (x86)\mosquitto
+mosquitto_sub.exe -h localhost -p 1884 -t mqtt
+
+//Mosquitto publish test
+cd C:\Program Files (x86)\mosquitto
+mosquitto_pub.exe -h localhost -p 1884 -t mqtt -m "Hello World"
+
+//Mosca server test for default
+mosquitto_sub.exe -h localhost -p 1883 -t mqtt
+
+mosquitto_pub.exe -h localhost -p 1883 -t mqtt -m "Hello World"
+
+
+//Mosca server test for default
+mosquitto_sub.exe -h localhost -p 8000 -t pubMsg
+
+mosquitto_pub.exe -h localhost -p 8000 -t pubMsg -m "Hello World"
+
+
+//Mongodb
+cd C:\Program Files\MongoDB\Server\3.2\bin
+//start service
+mongod
+//Shell
+mongo
+use db
+db.user.find()

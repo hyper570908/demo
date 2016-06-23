@@ -8,23 +8,11 @@ var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var settings = require('./settings');
 var routes = require('./routes/index');
-//Jason add mosca server test
-var mosca = require("mosca");
 
 var app = express();
-var mqtt = require('mqtt');
-var hostname = 'localhost';
-var portNumber = 1884;
-var mytopic= 'mqtt';
-var options = {
-    port:portNumber,
-    host: hostname,
-	protocolId: 'MQIsdp',
-	protocolVersion: 3
-};
-var UserModel = require('./models/user.js');
 
-var client = mqtt.connect(options);
+var UserModel = require('./models/user.js');
+var LocalClient =  require('./models/localClient.js');
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -54,15 +42,26 @@ app.listen(app.get('port'), function() {
 console.log('settings.cookieSecret : '+settings.cookieSecret);
 console.log('settings.db : '+settings.db);
 
-client.on('connect', function()  {
-	console.log('Connect to mqtt topic:'+mytopic);
-  	client.subscribe(mytopic);
+LocalClient.on('connect', function()  {
+	console.log('Connect to mqtt topic:'+settings.mytopic);
+  	LocalClient.subscribe(settings.mytopic);
 });
 
-client.on('message', function(topic, message) {
+LocalClient.on('message', function(topic, message) {
 	console.log('topic:'+topic.toString());
 	console.log('message:'+message.toString());
-	var obj = JSON.parse(message);
+	console.log('message type :'+getType(message));
+	if(getType(message) !== 'object') 
+		return;
+	try {
+		// 需要測試的語句
+		var obj = JSON.parse(message);
+	}
+	catch (e) {
+		console.log('parse json error message :'+e.toString());
+		return;
+	}
+	
 	//console.log('name:'+obj.name +" , age : "+obj.age);
 	var newUser = new UserModel({
 		name 	  : obj.name,
@@ -77,6 +76,14 @@ client.on('message', function(topic, message) {
 	});
 	
 });
+
+function getType(p) {
+    if (Array.isArray(p)) return 'array';
+    else if (typeof p == 'string') return 'string';
+    else if (p != null && typeof p == 'object') return 'object';
+    else return 'other';
+}
+
 
 //Jason modify on 2016.05.23
 //app.use('/', routes);
