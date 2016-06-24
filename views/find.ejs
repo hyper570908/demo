@@ -11,15 +11,17 @@
 
 <%- include footer %>
 <% if (datas) { %>
-    <table width="300" border="1">
+    <table width=“500" border="1">
 	<tr>
 		<td>名稱</td>
 		<td>年紀</td>
+		<td>上傳時間</td>
 	</tr>	
 	<% datas.forEach(function(data) { %>
 		<tr>
 		<td><%= data.name %></td>
 		<td><%= data.age %></td>
+		<td><%= data.created_at %></td>
 		</tr>				
 	<% }); %>
 	</table>

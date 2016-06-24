@@ -1,0 +1,25 @@
+<%- include header %>
+<meta http-equiv="refresh" content="5;url=http://localhost:3000/update">
+更新時間:<%=new Date() %>
+
+
+<table width="500" border="1">
+	<tr>
+		<td>名稱</td>
+		<td>年紀</td>
+		<td>上傳時間</td>
+	</tr>
+	<% if(user){ %>
+		<tr>
+		<td><%= user.name %></td>
+		<td><%= user.age %></td>
+		<td><%= user.created_at %></td>
+		</tr>
+	<% } %>
+</table>
+
+	
+<%- include footer %>
+
+    
+
