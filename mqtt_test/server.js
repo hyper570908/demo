@@ -1,6 +1,6 @@
 var mosca = require('mosca');
 var MqttServer = new mosca.Server({
-    port: 8000
+    port: 1884
 });
 
 MqttServer.on('clientConnected', function(client){
@@ -29,5 +29,5 @@ MqttServer.on('published', function(packet, client) {
 });
 
 MqttServer.on('ready', function(){
-    console.log('mqtt is running...');
+    console.log('mqtt is running...port:1884');
 });
